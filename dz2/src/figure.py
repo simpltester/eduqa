@@ -11,3 +11,15 @@ class Figure:
             return sum_area
         else:
             raise ValueError ("take wrong class")
+
+    @property
+    def get_name(self):
+        return self.name
+
+    @property
+    def get_perimeter(self):
+        return self.perimeter
+        
+    @property
+    def get_area(self):
+        return self.area
