@@ -10,8 +10,9 @@ def get_status_code(url):
     return response.status_code
 
 def is_jpg(jpg_url):
-    jpg = jpg_url.split("/")[-1]
-    if ".jpg" in jpg  or ".jpeg" in jpg:
+    jpg_name = jpg_url.split("/")[-1]
+    jpg = jpg_name.split(".")[-1]
+    if jpg.lower() in ("jpg", "jpeg", "png", "tiff"):
         return True
 
 def get_all_breeds():
