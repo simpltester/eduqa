@@ -24,7 +24,6 @@ def get_all_breeds():
 def get_sub_breed(breed):
     url = f"https://dog.ceo/api/breed/{breed}/list"
     answer = get_json(url)
-    print(answer["message"])
     return answer["message"]
 
     
