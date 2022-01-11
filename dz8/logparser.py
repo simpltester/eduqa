@@ -37,7 +37,7 @@ def log_parser(file):
                     url = re.search(r"\d - \"(.*?)\"", line)
                 timestamp = re.search(r"\[(.*?)\+", line)
                 params = [ip, method.group(1), url.group(1), timestamp.group(1).rstrip()]
-                duration_list.append((line.split(" ")[-1].rstrip(), params))
+                duration_list.append((int(line.split(" ")[-1].rstrip()), params))
     
     top_ips = get_top_ip(ips)
     print(f"Наиболее популярные IP-адреса: {', '.join(top_ips)}")
@@ -76,6 +76,6 @@ if os.path.isfile(args.file):
 elif os.path.isdir(args.file):
     for logfile in os.listdir(args.file):
         if ".log" in logfile:
-            log_parser(logfile)
+            log_parser(os.path.join(args.file, logfile))
 else:
     print("ERROR: Укажите файл или директорию")
