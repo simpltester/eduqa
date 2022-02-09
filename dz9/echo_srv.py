@@ -1,4 +1,3 @@
-import sys
 import socket
 from http import HTTPStatus
 
@@ -33,6 +32,8 @@ def resp_status_code(req):
 
 def prep_answer(data, client):
     lines = data.split('\r\n')
+    if len(lines) <= 2:
+        return "BAD STATUS\r\n", f"BAD REQUEST: {lines}\r\n"
     method, req, http_ver = get_method(lines[0])
     status = resp_status_code(req)
     if status:
@@ -64,7 +65,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
             if not data:
                 conn.close()
                 break
-
+            print(f'get {len(data)} bytes from client')
             status_line, body = prep_answer(data.decode('utf-8'), client)
             
             print('sending data to client...')
@@ -77,5 +78,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
                 headers,
                 body
             ])
-            conn.send(resp.encode('utf-8'))
+            sent_bytes = conn.send(resp.encode('utf-8'))
+            print(f'{sent_bytes} bytes sent')
         conn.close()
