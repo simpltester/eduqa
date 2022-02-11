@@ -40,10 +40,9 @@ def prep_answer(data, client):
         status_line = f'{http_ver} {status}'
     else:
         status_line = f'{http_ver} 200 OK'
-        status = 'Error: Bad Status'
     head = [f'Request Method: {method}',
     f'Request Source: {client}',
-    f'Response Status: {status}']
+    f'Response Status: {status_line}']
     body = '\r\n'.join(head + lines[2:])
     body_tags = f'<pre>{body}</pre>'
     return status_line, body_tags
